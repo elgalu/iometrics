@@ -11,7 +11,7 @@ DUAL_METRICS_HEADER = """
 | ------:| ------:| -----:| -----:| ---:| ---:| ------:| ------:| -----:| -----:| ------:| ------:| -----:| -----:|"""
 
 
-def usage() -> None:
+def usage(iterations: int = 10000) -> str:
     """
     ## Example usage and example output:
 
@@ -27,7 +27,7 @@ def usage() -> None:
     net  = NetworkMetrics()
     disk = DiskMetrics()
 
-    for i in range(10000):
+    for i in range(iterations):
         time.sleep(1)
 
         net.update_stats()
@@ -45,6 +45,8 @@ def usage() -> None:
             f"|"
         )
         print(row)
+
+    return row
 
 # `__all__` is left here for documentation purposes and as a
 # reference to which interfaces are meant to be imported.
