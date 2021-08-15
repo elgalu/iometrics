@@ -1,0 +1,45 @@
+# How to release new package versions:
+#   see CONTRIBUTING.md
+
+# Moving this settings to pyproject.toml doesn't current work properly:
+# https://github.com/dmerejkowsky/tbump/issues/104
+
+github_url = "https://github.com/elgalu/iometrics"
+
+[version]
+# Do not change the version here but rather `tbump "0.0.5" --only-patch`
+current = "0.0.1"
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  '''
+
+[git]
+message_template  = "[ci skip] Bump to {new_version}"
+tag_template = "{new_version}"
+
+[[file]]
+src = "pyproject.toml"
+search = 'version = "{current_version}"'
+
+[[file]]
+src = "iometrics/__init__.py"
+search = '__version__ = "{current_version}"'
+
+[[before_commit]]
+name = "Check CHANGELOG.md contains the new version"
+cmd = "grep -q {new_version} CHANGELOG.md"
+
+[[before_commit]]
+name = "Run all hooks"
+cmd = "poetry run invoke hooks"
+
+[[after_push]]
+name = "Publish to PyPi"
+cmd = "scripts/build_and_publish.sh"
+[[after_push]]
+name = "Merge to main"
+cmd = "scripts/merge_to_main.sh"

@@ -1,0 +1,113 @@
+[tool.poetry]
+name = "iometrics"
+# Note tbump will bump `version` and also `iometrics/__init__.py`
+# Do not change the version here but rather `tbump "0.0.5" --only-patch`
+version = "0.0.1"
+description = "Network and Disk I/O Stats Monitor"
+authors = ["Leo Gallucci <elgalu3@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/elgalu/iometrics"
+keywords = ["io", "network", "metrics", "pytorch-lightning"]
+license = "Apache 2.0"
+# https://pypi.org/classifiers/
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: Implementation",
+  # TODO: support (test) also PyPy python implementation
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: System Administrators",
+  "Operating System :: POSIX :: Linux",
+  # TODO: Check if it works in OSX
+  # "Operating System :: MacOS :: MacOS X",
+  "Environment :: Console",
+  "License :: OSI Approved :: Apache Software License",
+  "Topic :: Utilities",
+  "Topic :: System :: Emulators",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Testing :: Acceptance",
+  "Topic :: Software Development :: Testing :: Mocking",
+  "Typing :: Typed",
+]
+packages = [{ include = "iometrics", from = "." }]
+
+[tool.poetry.urls]
+Changelog = "https://github.com/elgalu/iometrics/blob/main/CHANGELOG.md"
+Issues = "https://github.com/elgalu/iometrics/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+# https://github.com/PyCQA/pylint
+pylint = "^2.8"
+pytest = "^6.2"
+pytest-cov = "^2.12"
+pytest-html = "^2.1"
+mypy = { git = "https://github.com/python/mypy.git", rev = "4c90aa42e6a74f127956124aec94f55dbc46a281" }
+autopep8 = "^1.5"
+invoke = "^1.5.0"
+pre-commit = "^2.13"
+flake8 = "^3.9"
+pydocstyle = "^6.1.1"
+black = { version = "^20.8b1", allow-prereleases = true }
+# No `safety` pre-commit hook is available yet:
+# https://github.com/pyupio/safety/issues/336
+safety = "^1.10"
+# Roll-up CHANGELOG.md with https://github.com/twisted/towncrier
+towncrier = "^21.3.0"
+# Bump software releases with https://github.com/dmerejkowsky/tbump
+# See `tbump.toml`
+tbump = { git = "https://github.com/dmerejkowsky/tbump.git", rev = "03988d5d2267ddd4a33b3c4196b05b7f24f0a0a4" }
+
+[tool.pylint.'REPORTS']
+msg-template = "{path}:{line}: [{msg_id}({symbol}),{obj}]{msg}"
+reports = "no" # https://docs.sonarqube.org/latest/analysis/languages/python/#pylint
+
+[tool.pylint.'MESSAGES CONTROL']
+# disable = "bad-continuation,missing-docstring"
+
+[tool.pytest.ini_options]
+junit_family = "legacy"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+
+[tool.mypy]
+# https://dokk.org/documentation/mypy/v0.471/config_file/#global-flags
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = false
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+no_implicit_reexport = true
+disallow_untyped_defs = true
+
+[tool.black]
+# https://black.readthedocs.io/en/stable/pyproject_toml.html#configuration-format
+line-length = 101
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[build-system]
+requires = ["poetry>=1.1.7"]
+build-backend = "poetry.masonry.api"

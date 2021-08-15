@@ -1,0 +1,31 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{yaml,yml}]
+indent_size = 2
+
+[Vagrantfile*]
+indent_size = 2
+
+[*.rb]
+indent_size = 2
+
+[.yamllint]
+indent_size = 2
+
+[*.bat]
+indent_style = tab
+end_of_line = crlf
+
+[Makefile]
+indent_style = tab
+
+[LICENSE]
+insert_final_newline = false

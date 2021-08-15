@@ -1,0 +1,6 @@
+# Dockerfile linter, validate inline bash
+# https://github.com/hadolint/hadolint#configure
+ignored:
+  - DL3007 # Using latest is prone to errors if the image will ever update.
+  - DL3008 # Pin versions in apt get install, i.e. use `apt-get install <package>=<version>`.
+  - DL3015 # Avoid additional packages by specifying `--no-install-recommends`.

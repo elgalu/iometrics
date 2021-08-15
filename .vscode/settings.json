@@ -1,0 +1,26 @@
+{
+    "spellright.language": [
+        "English (American)",
+        "de_DE",
+        "es_AR"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    // VSCode autodetects the ./.venv path as a virtualenv
+    //     ln -fs "$(poetry env info --path)" .venv
+    "python.venvPath": ".venv",
+    "python.pythonPath": ".venv/bin/python",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true,
+}

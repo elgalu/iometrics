@@ -1,0 +1,5 @@
+# https://github.com/pyinvoke/invoke
+debug: false
+run:
+  echo: true
+  pty: true

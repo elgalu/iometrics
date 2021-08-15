@@ -1,0 +1,178 @@
+# update with: pre-commit autoupdate --freeze
+minimum_pre_commit_version: 2.9.3
+fail_fast: true
+default_stages: ["commit", "push"]
+repos:
+  # meta
+
+  - repo: meta
+    hooks:
+      # - id: check-hooks-apply
+      - id: check-useless-excludes
+
+  # formatters
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: "dcd740bc0ebaf2b3d43e59a0060d157c97de13f3" # frozen: 3.9.2
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: "606b4ff052e6f971b03e1318bd6d1a11dda45959" # frozen: v2.5.0
+    hooks:
+      - id: reorder-python-imports
+
+  - repo: https://github.com/ambv/black
+    rev: "93c10bf9ebccf8d7cc686b0b9579f2e5e41c5328" # frozen: 21.6b0
+    hooks:
+      - id: black
+
+  # Automatically upgrades syntax for newer versions of the language
+  - repo: https://github.com/asottile/pyupgrade
+    rev: "8477efba80e0dc09a19d5e7cfa43f48e1d317457" # frozen: v2.21.1
+    hooks:
+      - id: pyupgrade
+        stages: ["push"]
+
+  # linters
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: "9b62635bd078b7f51e98b5300c6a6352f698d78a" # frozen: 1.7.0
+    hooks:
+      - id: bandit
+        args: ["-x", "tests"]
+        stages: ["push"]
+
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: "eade6b5b4f083e087e329cc8a9f02bb372a03100" # frozen: 6.1.1
+    hooks:
+      - id: pydocstyle
+        args: ["--ignore=D10,D21"]
+        additional_dependencies:
+          - "toml>=0.10.2"
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        types: ["python"]
+        files: ^tests\/.*test_.*\.py$
+        pass_filenames: false # or use with: require_serial
+
+        # https://github.com/pre-commit/mirrors-pylint/issues/11
+      - id: pylint
+        name: pylint
+        entry: pylint --rcfile pyproject.toml slurmops
+        types: ["python"]
+        language: system
+        pass_filenames: false
+
+      - id: safety
+        name: safety
+        entry: safety
+        language: system
+        pass_filenames: false
+        args: ["check", "--bare"]
+        stages: ["push"]
+
+      - id: poetry
+        name: poetry
+        description: Validates the structure of the pyproject.toml file
+        entry: poetry check
+        language: system
+        pass_filenames: false
+        files: ^pyproject.toml$
+        stages: ["push"]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: "01da43d753cdff4ea7dff952b4f5317450af31e3" # frozen: v2.1.0
+    hooks:
+      - id: codespell
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: "85ccd625a382423edd988fcb796c4dd5897886fb" # frozen: v1.26.1
+    hooks:
+      - id: yamllint
+        args: ["--strict", "-d", "{rules: {line-length: {max: 180}}}"]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "44afb68a9695d04030edc5cdc5a4fc4f17e4f9e2" # frozen: v0.910
+    hooks:
+      - id: mypy
+
+  # TODO: Enable tflint for Packer or Terraform projects
+  # See settings at .tflint.hcl
+  # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md#configuring-tflint
+  # - repo: https://github.com/terraform-linters/tflint
+  #   rev: "ff7e99455440c3b473f76933044f2c7848aa1f9c" # frozen: v0.30.0
+  #   hooks:
+  #     - id: tflint
+  #       types: ["terraform"]
+  #       args: ["packer.pkr.hcl"]
+
+  # Enable cfn-python-lint to validate your AWS Cloudformation Templates
+  # https://github.com/aws-cloudformation/cfn-lint#config-file
+  # - repo: https://github.com/aws-cloudformation/cfn-python-lint
+  #   rev: "49b0be38056bf4e963438059d644a06b8650fc43" # frozen: v0.51.0
+  #   hooks:
+  #     - id: cfn-python-lint
+  #       files: deploy/apply/.*\.(json|yml|yaml)$
+
+  # Enable hadolint if you have Dockerfile(s) in your project
+  # https://github.com/hadolint/hadolint#configure
+  # - repo: https://github.com/hadolint/hadolint
+  #   rev: "37c7a2f9d6a8dfde908e7766575f4ff3000aea97" # frozen: v2.5.0
+  #   hooks:
+  #     - id: hadolint
+
+  # https://github.com/igorshubovych/markdownlint-cli#configuration
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: "d6e415450ce274073fffad32c6503ad35a9cacea" # frozen: v0.27.1
+    hooks:
+      - id: markdownlint
+        args: ["--ignore", "towncrier-template.md"]
+
+  # miscellaneous
+  # https://github.com/pre-commit/pre-commit-hooks#hooks-available
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "38b88246ccc552bffaaf54259d064beeee434539" # frozen: v4.0.1
+    hooks:
+      - id: check-added-large-files
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+        args: ["--unsafe"] # https://stackoverflow.com/a/59414199/511069
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: detect-private-key
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+      - id: check-executables-have-shebangs
+        # `no-commit-to-branch` protects main/master from direct push
+      - id: no-commit-to-branch
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: "6f51a66bba59954917140ec2eeeaa4d5e630e6ce" # frozen: v1.9.0
+    hooks:
+      - id: python-use-type-annotations
+      - id: python-no-log-warn
+      - id: python-no-eval
+      - id: python-check-mock-methods
+      - id: python-check-blanket-noqa
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: "7cc5848088fd8412905ab79feea6c8edc3ac76c6" # frozen: 2.1.5
+    hooks:
+      # TODO: Forbid binary files from being committed
+      # - id: forbid-binary
+      # Shell scripts conform to shellcheck
+      - id: shellcheck
+      # Non-executable shell script filename ends in .sh
+      - id: script-must-have-extension

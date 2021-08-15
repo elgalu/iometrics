@@ -1,0 +1,63 @@
+# iometrics
+
+[![Python](docs/img/badges/language.svg)](https://devdocs.io/python/)
+
+Network and Disk I/O Stats Monitor.
+
+## Usage
+
+Monitor and log Network and Disks statistics in MegaBytes per second.
+
+### Pytorch-lightning integration
+
+```py
+# TODO: add a pytorch-lightning integration example
+```
+
+### Pure-Python implementation
+
+Quick check:
+
+```sh
+python -c 'import iometrics; iometrics.usage()'
+```
+
+Full code:
+
+```py
+import time
+from iometrics import NetworkMetrics, DiskMetrics, DUAL_METRICS_HEADER
+net  = NetworkMetrics()
+disk = DiskMetrics()
+for i in range(100):
+    time.sleep(1)
+    net.update_stats()
+    disk.update_stats()
+    print(DUAL_METRICS_HEADER) if i % 15 == 0 else None
+    row = (
+        f"| {net.mb_recv_ps.val:6.1f} | {net.mb_recv_ps.avg:6.1f} "
+        f"| {net.mb_sent_ps.val:5.1f} | {net.mb_sent_ps.avg:5.1f} "
+        f"| {int(disk.io_util.val):3d} | {int(disk.io_util.avg):3d} "
+        f"| {disk.mb_read.val:6.1f} | {disk.mb_read.avg:6.1f} "
+        f"| {disk.mb_writ.val:5.1f} | {disk.mb_writ.avg:5.1f} "
+        f"| {int(disk.io_read.val):4d} | {int(disk.io_read.avg):4d} "
+        f"| {int(disk.io_writ.val):3d} | {int(disk.io_writ.avg):3d} "
+        f"|"
+    )
+    print(row)
+```
+
+#### Example output
+
+```markdown
+|        Network (MBytes/s)       | Disk Util |            Disk MBytes          |           Disk I/O          |
+|     Received    |     Sent      |     %     |    MB/s Read    |  MB/s Written |     I/O Read    | I/O Write |
+|   val  |   avg  |  val  |  avg  | val | avg |  val   |  avg   |  val  |  avg  |   val  |   avg  | val | avg |
+| ------:| ------:| -----:| -----:| ---:| ---:| ------:| ------:| -----:| -----:| ------:| ------:| ---:| ---:|
+|    4.6 |    3.5 |   0.1 |   0.1 |  49 |   2 |   52.8 |    1.1 |   0.0 |   0.9 |    211 |      4 |   5 |  18 |
+|    4.1 |    3.5 |   0.1 |   0.1 |  61 |   3 |   60.4 |    2.4 |  40.3 |   1.7 |    255 |     10 | 149 |  21 |
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
