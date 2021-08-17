@@ -1,6 +1,6 @@
 # iometrics
 
-[![Python](docs/img/badges/language.svg)](https://devdocs.io/python/)
+[![Python](https://github.com/elgalu/iometrics/raw/main/docs/img/badges/language.svg)](https://devdocs.io/python/)
 
 Network and Disk I/O Stats Monitor.
 
@@ -21,8 +21,8 @@ trainer = Trainer(callbacks=[net_disk_stats])
 
 Metrics generated:
 
-* **network/recv_MB_per_sec**    – Received MegaBytes per second (MB/s) on all relevant network interfaces as a SUM.
-* **network/sent_MB_per_sec**    – Sent     MegaBytes per second (MB/s) on all relevant network interfaces as a SUM.
+* **network/recv_MB_per_sec**    – Received MB/s on all relevant network interfaces as a SUM.
+* **network/sent_MB_per_sec**    – Sent     MB/s on all relevant network interfaces as a SUM.
 * **disk/util%**                 – Disk utilization percentage as the average of all disk devices.
 * **disk/read_MB_per_sec**       – Disks read MB/s    as the sum of all disk devices.
 * **disk/writ_MB_per_sec**       – Disks written MB/s as the sum of all disk devices.
