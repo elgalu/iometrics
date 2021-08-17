@@ -27,11 +27,21 @@ manually, step by step:
 This project uses [towncrier](https://github.com/twisted/towncrier) for CHANGELOG automation.
 Start all your feature/bugs/other with:
 
+### Create a release branch
+
+Make sure you're on a release branch, e.g. `git checkout -b release-0.0.3` .
+And that the release branch is pushed (tracked) in origin, else you'll get `does not track anything` tbump error.
+
+### Create a new fragment for the CHANGELOG
+
 ```sh
-towncrier create "initial_setup.add" # just an example feature name
+# "initial_setup" is the name of the fragment
+# "add" is the fragment type; add|changed|deprecated|removed|fixed|security
+towncrier create "initial_setup.add"
 #=> Created news fragment at .changelog.d/initial_setup.add
-# Now edit the initial_setup.add file describing what you're doing.
 ```
+
+Then edit the initial_setup.add file describing what you're doing.
 
 ## Running the tests locally
 
@@ -47,29 +57,24 @@ Note the first version was bumped with `tbump init "0.0.1"`
 
 ### Creating a new version
 
-#### Create a release branch
-
-First make sure you're on a release branch, e.g. `git checkout -b release-0.0.2` .
-And that the release branch is pushed (tracked) in origin, else you'll get `does not track anything` tbump error.
-
 #### Build the Changelog
 
 Add `--yes` when running in CI/CD to avoid stdin questions:
 
 ```sh
-towncrier build --version "0.0.2" --draft  # test first
-towncrier build --version "0.0.2"          # final
+towncrier build --version "0.0.3" --draft  # test first
+towncrier build --version "0.0.3"          # final
 ```
 
 #### Manual tbump release
 
-Finally bump with `tbump "0.0.2"` , this will also publish to <https://pypi.org/project/iometrics>
+Finally bump with `tbump "0.0.3"` , this will also publish to <https://pypi.org/project/iometrics>
 
 #### Additional notes on tbump
 
-If you want to bump the version locally, without creating a git tag use `tbump "0.0.2" --only-patch`
+If you want to bump the version locally, without creating a git tag use `tbump "0.0.3" --only-patch`
 
-However the version bumping is currently automated in CI/CD via `tbump "0.0.2" --non-interactive`
+However the version bumping is currently automated in CI/CD via `tbump "0.0.3" --non-interactive`
 
 ### Build and publish the new version to PyPI
 

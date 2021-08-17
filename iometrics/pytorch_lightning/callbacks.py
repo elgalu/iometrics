@@ -8,10 +8,7 @@ Monitor and log Network and Disk stats during a PyTorch Lightning training.
 Copyright 2021 The PyTorch Lightning Team under Apache 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
 Copyright 2021 Leo Gallucci               under Apache 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
 """
-import time
 from typing import Any, Dict, Optional
-
-import torch
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks.base import Callback
@@ -95,13 +92,15 @@ class NetworkAndDiskStatsMonitor(Callback):
         new_logs: Dict[str, float] = {}
 
         if self._settings.track_network_utilization:
-            self._net_meter  = self._net_meter or NetworkMetrics()
+            if not hasattr(self, '_net_meter'):
+                self._net_meter = NetworkMetrics()
             self._net_meter.update_stats()
             new_logs[LOG_KEY_NETW_BYTES_RECV] = float(self._net_meter.mb_recv_ps.val)
             new_logs[LOG_KEY_NETW_BYTES_SENT] = float(self._net_meter.mb_sent_ps.val)
 
         if self._settings.track_disk_utilization:
-            self._disk_meter = self._disk_meter or DiskMetrics()
+            if not hasattr(self, '_disk_meter'):
+                self._disk_meter = DiskMetrics()
             self._disk_meter.update_stats()
             new_logs[LOG_KEY_DISK_UTIL]    = float(self._disk_meter.io_util.val)
             new_logs[LOG_KEY_DISK_MB_READ] = float(self._disk_meter.mb_read.val)
@@ -149,3 +148,16 @@ class NetworkAndDiskStatsMonitor(Callback):
         modulo_result: bool = (trainer.global_step + 1) % trainer.log_every_n_steps == 0
 
         return modulo_result or trainer.should_stop
+
+# `__all__` is left here for documentation purposes and as a
+# reference to which interfaces are meant to be imported.
+__all__ = [
+    "NetworkAndDiskStatsMonitor",
+    "LOG_KEY_NETW_BYTES_RECV",
+    "LOG_KEY_NETW_BYTES_SENT",
+    "LOG_KEY_DISK_UTIL",
+    "LOG_KEY_DISK_MB_READ",
+    "LOG_KEY_DISK_MB_WRIT",
+    "LOG_KEY_DISK_IO_READ",
+    "LOG_KEY_DISK_IO_WRIT",
+]

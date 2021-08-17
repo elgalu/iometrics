@@ -62,6 +62,9 @@ towncrier = "^21.3.0"
 # Bump software releases with https://github.com/dmerejkowsky/tbump
 # See `tbump.toml`
 tbump = { git = "https://github.com/dmerejkowsky/tbump.git", rev = "03988d5d2267ddd4a33b3c4196b05b7f24f0a0a4" }
+# We need PyTorch-Lightning to run the Callback tests
+torch = "^1.9.0"
+pytorch_lightning = "^1.4.2"
 
 [tool.pylint.'REPORTS']
 msg-template = "{path}:{line}: [{msg_id}({symbol}),{obj}]{msg}"
