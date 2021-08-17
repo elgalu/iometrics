@@ -59,6 +59,7 @@ Note the first version was bumped with `tbump init "0.0.1"`
 
 #### Build the Changelog
 
+Commit all your local changes.
 Add `--yes` when running in CI/CD to avoid stdin questions:
 
 ```sh

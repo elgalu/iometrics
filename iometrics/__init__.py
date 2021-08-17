@@ -1,27 +1,34 @@
 #!/usr/bin/env python3
 """
-## Network and Disk I/O Stats Monitor
+## Network and Disk I/O Stats Monitor.
 
 Monitor and log Network and Disks statistics in MegaBytes per second.
 
 ### Pytorch-lightning integration
 
 ```py
-# TODO: add a pytorch-lightning integration example
+from pytorch_lightning import Trainer
+from iometrics.pytorch_lightning.callbacks import NetworkAndDiskStatsMonitor
+
+net_disk_stats = NetworkAndDiskStatsMonitor()
+
+trainer = Trainer(callbacks=[net_disk_stats])
 ```
 
-### Pure-Python implementation
+### Pure-Python implementation (zero dependencies)
 
 ```py
 import time
-from iometrics import NetworkMetrics, DiskMetrics, DUAL_METRICS_HEADER
+from iometrics import NetworkMetrics, DiskMetrics
+from iometrics.example import DUAL_METRICS_HEADER
 net  = NetworkMetrics()
 disk = DiskMetrics()
 for i in range(100):
     time.sleep(1)
     net.update_stats()
     disk.update_stats()
-    print(DUAL_METRICS_HEADER) if i % 15 == 0 else None
+    if i % 15 == 0:
+        print(DUAL_METRICS_HEADER)
     row = (
         f"| {net.mb_recv_ps.val:6.1f} | {net.mb_recv_ps.avg:6.1f} "
         f"| {net.mb_sent_ps.val:5.1f} | {net.mb_sent_ps.avg:5.1f} "
@@ -54,14 +61,11 @@ __version__ = "0.0.2"
 
 from iometrics.network import NetworkMetrics
 from iometrics.disk import DiskMetrics
-from iometrics.example import usage, DUAL_METRICS_HEADER
 
 # `__all__` is left here for documentation purposes and as a
 # reference to which interfaces are meant to be imported.
 __all__ = [
     "__version__",
-    "usage",
-    "DUAL_METRICS_HEADER",
     "NetworkMetrics",
     "DiskMetrics",
 ]

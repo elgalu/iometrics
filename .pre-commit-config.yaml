@@ -64,7 +64,7 @@ repos:
         # https://github.com/pre-commit/mirrors-pylint/issues/11
       - id: pylint
         name: pylint
-        entry: pylint --rcfile pyproject.toml slurmops
+        entry: pylint --rcfile pyproject.toml iometrics
         types: ["python"]
         language: system
         pass_filenames: false
@@ -102,7 +102,7 @@ repos:
     hooks:
       - id: mypy
 
-  # TODO: Enable tflint for Packer or Terraform projects
+  # Enable tflint for Packer or Terraform projects
   # See settings at .tflint.hcl
   # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md#configuring-tflint
   # - repo: https://github.com/terraform-linters/tflint
@@ -170,7 +170,7 @@ repos:
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: "7cc5848088fd8412905ab79feea6c8edc3ac76c6" # frozen: 2.1.5
     hooks:
-      # TODO: Forbid binary files from being committed
+      # Enable to Forbid binary files from being committed
       # - id: forbid-binary
       # Shell scripts conform to shellcheck
       - id: shellcheck

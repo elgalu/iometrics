@@ -70,8 +70,14 @@ pytorch_lightning = "^1.4.2"
 msg-template = "{path}:{line}: [{msg_id}({symbol}),{obj}]{msg}"
 reports = "no" # https://docs.sonarqube.org/latest/analysis/languages/python/#pylint
 
-[tool.pylint.'MESSAGES CONTROL']
-# disable = "bad-continuation,missing-docstring"
+[tool.pylint.'FORMAT']
+max-line-length = 120
+
+[tool.pylint.'DESIGN']
+max-attributes = 8
+
+[tool.pylint.'SIMILARITIES']
+ignore-imports = true
 
 [tool.pytest.ini_options]
 junit_family = "legacy"
@@ -93,7 +99,7 @@ disallow_untyped_defs = true
 
 [tool.black]
 # https://black.readthedocs.io/en/stable/pyproject_toml.html#configuration-format
-line-length = 101
+line-length = 120
 target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
