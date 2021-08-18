@@ -8,7 +8,7 @@ github_url = "https://github.com/elgalu/iometrics"
 
 [version]
 # Do not change the version here but rather `tbump "0.0.5" --only-patch`
-current = "0.0.3"
+current = "0.0.4"
 regex = '''
   (?P<major>\d+)
   \.
