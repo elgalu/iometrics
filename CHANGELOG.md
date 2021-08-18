@@ -4,7 +4,7 @@
 
 ### Fixed in 0.0.4
 
-* Fix bug in PyTorch-Lightning integration  [#pl]
+* Fix bug in PyTorch-Lightning integration  [#PyTorch-Lightning]
 
 ## 0.0.3 - [2021-08-17]
 

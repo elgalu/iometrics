@@ -2,11 +2,15 @@
 
 [![Python](https://github.com/elgalu/iometrics/raw/main/docs/img/badges/language.svg)](https://devdocs.io/python/)
 
-Network and Disk I/O Stats Monitor.
+Monitor and log Network and Disks statistics in MegaBytes per second.
+
+## Install
+
+```sh
+pip install iometrics
+```
 
 ## Usage
-
-Monitor and log Network and Disks statistics in MegaBytes per second.
 
 ### Pytorch-lightning integration
 
