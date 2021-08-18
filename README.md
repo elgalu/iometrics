@@ -23,7 +23,7 @@ net_disk_stats = NetworkAndDiskStatsMonitor()
 trainer = Trainer(callbacks=[net_disk_stats])
 ```
 
-Metrics generated:
+#### Metrics generated
 
 * **network/recv_MB_per_sec**    – Received MB/s on all relevant network interfaces as a SUM.
 * **network/sent_MB_per_sec**    – Sent     MB/s on all relevant network interfaces as a SUM.
@@ -32,6 +32,10 @@ Metrics generated:
 * **disk/writ_MB_per_sec**       – Disks written MB/s as the sum of all disk devices.
 * **disk/io_read_count_per_sec** – Disks read I/O operations per second    as the sum of all disk devices.
 * **disk/io_writ_count_per_sec** – Disks written I/O operations per second as the sum of all disk devices.
+
+#### Screen shot
+
+<img id="png_recv_MB_per_sec" width="450" src="https://github.com/elgalu/iometrics/raw/main/docs/img/metrics/network_recv_MB_per_sec.png" />
 
 ### Pure-Python implementation (zero dependencies)
 
