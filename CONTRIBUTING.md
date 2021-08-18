@@ -67,6 +67,8 @@ towncrier build --version "0.0.4" --draft  # test first
 towncrier build --version "0.0.4"          # final
 ```
 
+Now commit towncrier changes.
+
 #### Manual tbump release
 
 Finally bump with `tbump "0.0.4"` , this will also publish to <https://pypi.org/project/iometrics>

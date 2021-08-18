@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.4 - [2021-08-18]
+
+### Fixed in 0.0.4
+
+* Fix bug in PyTorch-Lightning integration  [#pl]
+
 ## 0.0.3 - [2021-08-17]
 
 ### Fixed in 0.0.3
