@@ -11,7 +11,7 @@
 ### Added on 0.0.2
 
 * Add PyTorch-Lightning support via
-`from iometrics.pytorch_lightning.callbacks import NetworkAndDiskStatsMonitor` [#pytorch_lightning]
+`from iometrics.pytorch_lightning.callbacks import NetworkAndDiskStatsMonitor` [#PyTorch-Lightning]
 
 ## 0.0.1 - [2021-08-14]
 
