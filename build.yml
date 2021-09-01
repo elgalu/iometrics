@@ -1,0 +1,24 @@
+#Multi-configuration and multi-agent job options are not exported to YAML. Configure these options using documentation guidance: https://docs.microsoft.com/vsts/pipelines/process/phases
+pool:
+  name: Azure Pipelines
+variables:
+  python.version: '3.9'
+
+steps:
+- task: UsePythonVersion@0
+  displayName: 'Use Python $(python.version)'
+  inputs:
+    versionSpec: '$(python.version)'
+
+- script: 'python -m pip install --upgrade pip && pip install iometrics'
+  displayName: 'Install dependencies'
+
+- script: 'python -c ''from iometrics.example import usage; usage()'''
+  displayName: pytest
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/test-results.xml'
+  inputs:
+    testResultsFiles: '**/test-results.xml'
+    testRunTitle: 'Python $(python.version)'
+  enabled: false
