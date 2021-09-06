@@ -27,3 +27,6 @@ jobs:
           cd scripts
           chmod +x build.sh
           ./build.sh
+    - store_artifacts:
+        path: ./dist
+        destination: builds
