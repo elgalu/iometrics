@@ -1,0 +1,29 @@
+version: 2.1
+
+workflows:
+  main:
+    jobs:
+    - build:
+        filters:
+          branches:
+            only:
+            - main
+
+jobs:
+  build:
+    docker:
+    - image: cimg/python:3.8
+    steps:
+    - checkout
+    - run:
+        name: Install deps
+        command: |
+          - cd scripts
+          - chmod +x install.sh
+          - ./install.sh
+    - run:
+        name: Build app using poetry
+        command: |
+          - cd scripts
+          - chmod +x build.sh
+          - ./build.sh
