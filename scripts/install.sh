@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# Purpose: Build and publish the package into public PyPi
-#
-# Tested on:
-# - Linux: Ubuntu 20.04.2 LTS
-# - OSX..: TODO
 
 # set -e: exit asap if a command exits with a non-zero status
 set -e
@@ -18,6 +13,4 @@ set -u
 # set -x: prints all lines before running debug (debugging)
 set -x
 
-poetry build
-
-poetry publish
+pip install poetry
