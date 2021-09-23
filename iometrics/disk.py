@@ -140,8 +140,13 @@ def compute_new_stats_ps(
     """Compute the new stats per second based on last ones and the time delta."""
     aggr = AggregateDiskStats()
 
-    bytes_read_delta: int = per_device_stats[device_name].kb_read - last_all_devices_stats.kb_read
-    bytes_writ_delta: int = per_device_stats[device_name].kb_writ - last_all_devices_stats.kb_writ
+    bytes_read_delta: int = 0
+    bytes_writ_delta: int = 0
+
+    # Devices like AWS EBS or USB drives can get dynamically detached so validate key:
+    if device_name in per_device_stats:
+        bytes_read_delta = per_device_stats[device_name].kb_read - last_all_devices_stats.kb_read
+        bytes_writ_delta = per_device_stats[device_name].kb_writ - last_all_devices_stats.kb_writ
 
     # There's a bug that sometimes the delta is negative messing up the average.
     bytes_read_delta = max(0, bytes_read_delta)
@@ -150,8 +155,13 @@ def compute_new_stats_ps(
     aggr.mb_read_ps = bytes_read_delta * 512.0 / 1e6 / time_delta
     aggr.mb_writ_ps = bytes_writ_delta * 512.0 / 1e6 / time_delta
 
-    io_read_delta: int = per_device_stats[device_name].io_read - last_all_devices_stats.io_read
-    io_writ_delta: int = per_device_stats[device_name].io_writ - last_all_devices_stats.io_writ
+    io_read_delta: int = 0
+    io_writ_delta: int = 0
+
+    # Devices like AWS EBS or USB drives can get dynamically detached so validate key:
+    if device_name in per_device_stats:
+        io_read_delta = per_device_stats[device_name].io_read - last_all_devices_stats.io_read
+        io_writ_delta = per_device_stats[device_name].io_writ - last_all_devices_stats.io_writ
 
     # There's a bug that sometimes the delta is negative messing up the average.
     io_read_delta = max(0, io_read_delta)
