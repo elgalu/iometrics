@@ -35,7 +35,8 @@ trainer = Trainer(callbacks=[net_disk_stats])
 
 #### Screen shot
 
-<img id="png_recv_MB_per_sec" width="450" src="https://github.com/elgalu/iometrics/raw/main/docs/img/metrics/network_recv_MB_per_sec.png" />
+<img id="png_recv_MB_per_sec" width="450"
+ src="https://github.com/elgalu/iometrics/raw/main/docs/img/metrics/network_recv_MB_per_sec.png" />
 
 ### Pure-Python implementation (zero dependencies)
 

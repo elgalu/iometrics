@@ -3,30 +3,30 @@ version: 2.1
 workflows:
   main:
     jobs:
-    - build:
-        filters:
-          branches:
-            only:
-            - main
+      - build:
+          filters:
+            branches:
+              only:
+                - main
 
 jobs:
   build:
     docker:
-    - image: circleci/python:3.8.11
+      - image: circleci/python:3.7.12
     steps:
-    - checkout
-    - run:
-        name: Install deps
-        command: |
-          cd scripts
-          chmod +x install.sh
-          ./install.sh
-    - run:
-        name: Build app using poetry
-        command: |
-          cd scripts
-          chmod +x build.sh
-          ./build.sh
-    - store_artifacts:
-        path: ./dist
-        destination: builds
+      - checkout
+      - run:
+          name: Install deps
+          command: |
+            cd scripts
+            chmod +x install.sh
+            ./install.sh
+      - run:
+          name: Build app using poetry
+          command: |
+            cd scripts
+            chmod +x build.sh
+            ./build.sh
+      - store_artifacts:
+          path: ./dist
+          destination: builds
