@@ -12,7 +12,7 @@ license = "Apache 2.0"
 # https://pypi.org/classifiers/
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: Implementation",
   # TODO: support (test) also PyPy python implementation
   "Programming Language :: Python :: Implementation :: CPython",
@@ -39,7 +39,7 @@ Changelog = "https://github.com/elgalu/iometrics/blob/main/CHANGELOG.md"
 Issues = "https://github.com/elgalu/iometrics/issues"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 
 [tool.poetry.dev-dependencies]
 # https://github.com/PyCQA/pylint
@@ -100,7 +100,7 @@ disallow_untyped_defs = true
 [tool.black]
 # https://black.readthedocs.io/en/stable/pyproject_toml.html#configuration-format
 line-length = 120
-target-version = ['py38']
+target-version = ['py37']
 include = '\.pyi?$'
 exclude = '''
 /(
