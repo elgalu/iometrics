@@ -57,7 +57,7 @@ for i in range(100):
 :license: Apache 2.0, see LICENSE for more details.
 """
 # Do not change the version here but rather `tbump "0.0.5" --only-patch`
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 from iometrics.network import NetworkMetrics
 from iometrics.disk import DiskMetrics

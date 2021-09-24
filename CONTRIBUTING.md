@@ -29,7 +29,7 @@ Start all your feature/bugs/other with:
 
 ### Create a release branch
 
-Make sure you're on a release branch, e.g. `git checkout -b release-0.0.4` .
+Make sure you're on a release branch, e.g. `git checkout -b release-0.0.5` .
 And that the release branch is pushed (tracked) in origin, else you'll get `does not track anything` tbump error.
 
 ### Create a new fragment for the CHANGELOG
@@ -63,21 +63,21 @@ Commit all your local changes.
 Add `--yes` when running in CI/CD to avoid stdin questions:
 
 ```sh
-towncrier build --version "0.0.4" --draft  # test first
-towncrier build --version "0.0.4"          # final
+towncrier build --version "0.0.5" --draft  # test first
+towncrier build --version "0.0.5"          # final
 ```
 
 Now commit towncrier changes.
 
 #### Manual tbump release
 
-Finally bump with `tbump "0.0.4"` , this will also publish to <https://pypi.org/project/iometrics>
+Finally bump with `tbump "0.0.5"` , this will also publish to <https://pypi.org/project/iometrics>
 
 #### Additional notes on tbump
 
-If you want to bump the version locally, without creating a git tag use `tbump "0.0.4" --only-patch`
+If you want to bump the version locally, without creating a git tag use `tbump "0.0.5" --only-patch`
 
-However the version bumping is currently automated in CI/CD via `tbump "0.0.4" --non-interactive`
+However the version bumping is currently automated in CI/CD via `tbump "0.0.5" --non-interactive`
 
 ### Build and publish the new version to PyPI
 

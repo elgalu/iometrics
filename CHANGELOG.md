@@ -1,3 +1,15 @@
+
+## 0.0.5 - [2021-09-24]
+
+### Added
+
+* Add support for Python 3.7  [#py37]
+
+### Fixed
+
+* Devices like AWS EBS or USB drives can get dynamically detached so validate key  [#detach]
+
+
 # CHANGELOG
 
 ## 0.0.4 - [2021-08-18]
