@@ -7,6 +7,7 @@ Monitor and log Network and Disk stats during a PyTorch Lightning training.
 Copyright 2021 The PyTorch Lightning Team under Apache 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
 Copyright 2021 Leo Gallucci               under Apache 2.0 <http://www.apache.org/licenses/LICENSE-2.0>
 """
+import time
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -21,6 +22,9 @@ from pytorch_lightning.utilities.types import STEP_OUTPUT
 from iometrics import DiskMetrics
 from iometrics import NetworkMetrics
 
+
+# How often to fetch metrics
+TRACK_METRICS_INTERVAL_SECS = 10
 
 # Metrics generated:
 LOG_KEY_NETW_BYTES_RECV = "network/recv_MB_per_sec"
@@ -96,6 +100,9 @@ class NetworkAndDiskStatsMonitor(Callback):
         self._net_meter: Any[NetworkMetrics, None] = None
         self._disk_meter: Any[DiskMetrics, None] = None
 
+        # Also track time to make sure we don't fetch metrics too often.
+        self._time_tracker: float = time.time()
+
     def _get_new_logs(self) -> Dict[str, float]:
         new_logs: Dict[str, float] = {}
 
@@ -131,9 +138,12 @@ class NetworkAndDiskStatsMonitor(Callback):
         if not self._should_log(trainer):
             return
 
-        logs: Dict[str, float] = self._get_new_logs()
+        elapsed_secs_since_last_collection: float = (time.time() - self._time_tracker) * 1000
 
-        trainer.logger.log_metrics(logs, step=trainer.global_step)
+        if elapsed_secs_since_last_collection > TRACK_METRICS_INTERVAL_SECS:
+            self._time_tracker = time.time()
+            logs: Dict[str, float] = self._get_new_logs()
+            trainer.logger.log_metrics(logs, step=trainer.global_step)
 
     @rank_zero_only
     def on_train_batch_end(
