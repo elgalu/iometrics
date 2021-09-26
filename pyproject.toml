@@ -2,7 +2,7 @@
 name = "iometrics"
 # Note tbump will bump `version` and also `iometrics/__init__.py`
 # Do not change the version here but rather `tbump "0.0.5" --only-patch`
-version = "0.0.5"
+version = "0.0.6"
 description = "Network and Disk I/O Stats Monitor"
 authors = ["Leo Gallucci <elgalu3@gmail.com>"]
 readme = "README.md"

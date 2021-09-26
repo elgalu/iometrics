@@ -1,14 +1,21 @@
 # CHANGELOG
 
-## 0.0.5 - [2021-09-24]
+## 0.0.6 - [2021-09-26]
 
-### Added
+### Added in 0.0.6
 
+* Add "disk/io_wait%" for Disks I/O percentage of time that the CPU is waiting.  [#io_wait]
 * Add support for Python 3.7  [#py37]
 
-### Fixed
+## 0.0.5 - [2021-09-24]
+
+### Fixed in 0.0.5
 
 * Devices like AWS EBS or USB drives can get dynamically detached so validate key  [#detach]
+
+### Added in 0.0.5
+
+* Add support for Python 3.7  [#py37]
 
 ## 0.0.4 - [2021-08-18]
 
