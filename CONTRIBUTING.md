@@ -65,11 +65,15 @@ towncrier build --version "0.0.7" --draft  # test first
 towncrier build --version "0.0.7"          # final
 ```
 
-Now fix the `CHANGELOG.md` format then commit towncrier changes.
+Now fix the `CHANGELOG.md` order and sub-headings.
+
+Run `invoke hooks`
 
 #### Manual tbump release
 
-Finally bump with `tbump "0.0.7" --only-patch`
+Bump with `tbump "0.0.7" --only-patch`
+
+Commit changes with `Release 0.0.7 with _`
 
 Then run `poetry build && poetry publish` to also publish to <https://pypi.org/project/iometrics>
 

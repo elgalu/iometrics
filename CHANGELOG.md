@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.7 - [2021-09-26]
+
+### Added in 0.0.7
+
+* Add TRACK_METRICS_INTERVAL_SECS=10 to track metrics less often  [#TRACK_METRICS_INTERVAL_SECS]
+
 ## 0.0.6 - [2021-09-26]
 
 ### Added in 0.0.6
