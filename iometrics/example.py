@@ -38,6 +38,7 @@ def usage(iterations: int = 10000) -> str:
     """Compute a live metric report of network and disk statistics."""
     net = NetworkMetrics()
     disk = DiskMetrics()
+    row: str = ""
 
     for i in range(iterations):
         time.sleep(1)

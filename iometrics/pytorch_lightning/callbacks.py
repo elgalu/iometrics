@@ -30,6 +30,7 @@ LOG_KEY_DISK_MB_READ = "disk/read_MB_per_sec"
 LOG_KEY_DISK_MB_WRIT = "disk/writ_MB_per_sec"
 LOG_KEY_DISK_IO_READ = "disk/io_read_count_per_sec"
 LOG_KEY_DISK_IO_WRIT = "disk/io_writ_count_per_sec"
+LOG_KEY_DISK_IO_WAIT = "disk/io_wait%"
 
 
 class NetworkAndDiskStatsMonitor(Callback):
@@ -61,6 +62,7 @@ class NetworkAndDiskStatsMonitor(Callback):
     - **LOG_KEY_DISK_MB_WRIT**    – Disks written MB/s as the sum of all disk devices.
     - **LOG_KEY_DISK_IO_READ**    – Disks read I/O operations per second    as the sum of all disk devices.
     - **LOG_KEY_DISK_IO_WRIT**    – Disks written I/O operations per second as the sum of all disk devices.
+    - **LOG_KEY_DISK_IO_WAIT**    – Disks I/O percentage of time that the CPU is waiting.
 
     Raises
     ------
@@ -113,6 +115,7 @@ class NetworkAndDiskStatsMonitor(Callback):
             new_logs[LOG_KEY_DISK_MB_WRIT] = float(self._disk_meter.mb_writ.val)
             new_logs[LOG_KEY_DISK_IO_READ] = float(self._disk_meter.io_read.val)
             new_logs[LOG_KEY_DISK_IO_WRIT] = float(self._disk_meter.io_writ.val)
+            new_logs[LOG_KEY_DISK_IO_WAIT] = float(self._disk_meter.io_wait.val)
 
         return new_logs
 

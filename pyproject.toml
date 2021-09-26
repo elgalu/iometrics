@@ -40,6 +40,7 @@ Issues = "https://github.com/elgalu/iometrics/issues"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+psutil = "^5.8.0"
 
 [tool.poetry.dev-dependencies]
 # https://github.com/PyCQA/pylint
@@ -74,7 +75,8 @@ reports = "no" # https://docs.sonarqube.org/latest/analysis/languages/python/#py
 max-line-length = 120
 
 [tool.pylint.'DESIGN']
-max-attributes = 8
+# [R0902(too-many-instance-attributes),DiskMetrics]Too many instance attributes (9/8)
+max-attributes = 9
 
 [tool.pylint.'SIMILARITIES']
 ignore-imports = true

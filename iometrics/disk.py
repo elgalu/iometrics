@@ -15,6 +15,8 @@ from dataclasses import dataclass
 from typing import Dict
 from typing import List
 
+import psutil
+
 from iometrics.average_metrics import AverageMetrics
 
 
@@ -52,6 +54,7 @@ class DiskMetrics:
         self.io_read = AverageMetrics()
         self.io_writ = AverageMetrics()
         self.io_util = AverageMetrics()
+        self.io_wait = AverageMetrics()
 
         self.non_virtual_devices = get_non_virtual_disk_devices()
 
@@ -94,6 +97,9 @@ class DiskMetrics:
 
         per_device_stats: Dict[str, DiskStats] = self.get_disks_stats()
 
+        # Disks I/O percentage of time that the CPU is waiting
+        avg_io_wait_since_last_read: float = psutil.cpu_times_percent(interval=0).iowait
+
         aggr = AggregateDiskStats()
 
         for device_name, last_all_devices_stats in self.last_stats.items():
@@ -112,6 +118,7 @@ class DiskMetrics:
         self.io_read.update(aggr.io_read_ps)
         self.io_writ.update(aggr.io_writ_ps)
         self.io_util.update(avg_disks_io_util)
+        self.io_wait.update(avg_io_wait_since_last_read)
 
         self.last_log_time = time.time()
         self.last_stats = per_device_stats
