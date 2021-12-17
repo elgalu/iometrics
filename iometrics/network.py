@@ -10,6 +10,7 @@ Ground truth comes from `/proc/net/dev`, a file with stats updated by the *nix k
 """
 import re
 import time
+import os.path
 from dataclasses import dataclass
 from typing import Dict
 from typing import List
@@ -83,7 +84,14 @@ def get_network_bytes() -> Dict[str, NetworkStats]:
     interface_filter_out = re.compile(r"^(lo|tun.+|face.+|bond.+|.+\.\d+)$")
 
     # Note: all counters at /proc/* are starting with zero when the kernel starts.
-    with open("/proc/net/dev") as file:
+
+    src_path: str = ""
+    if os.path.exists("/host/proc/net/dev"):
+        src_path = "/host/proc/net/dev"
+    else:
+        src_path = "/proc/net/dev"
+
+    with open(src_path) as file:
         content: str = file.read()
 
     lines: List[str] = content.splitlines()

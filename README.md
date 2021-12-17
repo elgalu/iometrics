@@ -84,6 +84,18 @@ for i in range(100):
     print(row)
 ```
 
+## Run in Docker container
+#### On the host:
+```
+nohup bash fakeproc.sh &
+```
+after you run above script in the host you should mount the `/host/proc/net/dev` to the container. for example:
+
+```
+docker run -it -v "/tmp/dev/:/host/proc/net/dev:ro" <YOURIMAGE> bash
+```
+
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
