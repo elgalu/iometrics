@@ -69,7 +69,7 @@ Now fix the `CHANGELOG.md` order and sub-headings.
 
 Run `invoke hooks`
 
-#### Manual tbump release
+#### tbump release
 
 Bump with `tbump "0.0.8" --only-patch`
 

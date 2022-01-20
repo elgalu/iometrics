@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.8 - [2022-01-20]
+
+### Added
+
+* Add dummy CLI with `iometrics start` and `iometrics replicate proc`  [#cli]
+
 ## 0.0.7 - [2021-09-26]
 
 ### Added in 0.0.7
