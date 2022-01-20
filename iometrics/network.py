@@ -8,9 +8,9 @@ Ground truth comes from `/proc/net/dev`, a file with stats updated by the *nix k
 :copyright: (c) 2021 by Leo Gallucci under Apache License 2.0.
 :license: Apache 2.0, see LICENSE for more details.
 """
+import os.path
 import re
 import time
-import os.path
 from dataclasses import dataclass
 from typing import Dict
 from typing import List

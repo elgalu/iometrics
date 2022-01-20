@@ -84,17 +84,20 @@ for i in range(100):
     print(row)
 ```
 
-## Run in Docker container
-#### On the host:
+## Run in a Docker container
+
+Containers don't have access to the host's network statistics, therefore this workaround is needed.
+
+```sh
+# on the host machine (not inside the container)
+iometrics replicate proc &
 ```
-nohup bash fakeproc.sh &
-```
+
 after you run above script in the host you should mount the `/host/proc/net/dev` to the container. for example:
 
+```sh
+docker run -it -v "/tmp/proc_net_dev:/host/proc/net/dev:ro" <YOURIMAGE>
 ```
-docker run -it -v "/tmp/dev/:/host/proc/net/dev:ro" <YOURIMAGE> bash
-```
-
 
 ## Contributing
 

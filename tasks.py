@@ -25,9 +25,19 @@ from invoke.exceptions import UnexpectedExit
 @task
 def setup(c):  # type: ignore
     """Set this project up for Development."""
-    c.run("ls -lah --color=yes .venv")
-    c.run("poetry env info --path")
+    cmd = "poetry env info --path"
+    venv_path = None
+    try:
+        venv_path = c.run(cmd).stdout.strip()
+    except UnexpectedExit:
+        print("failed: %s", cmd)
+        c.run("poetry install --no-root")
+        venv_path = c.run(cmd).stdout.strip()
+
     c.run("poetry debug info")
+    if not os.path.exists(".venv"):
+        c.run(f'ln -fs "{venv_path}" .venv')
+    c.run("ls -lah --color=yes .venv")
     c.run("poetry run pre-commit install")
 
 
@@ -67,12 +77,6 @@ def clean(c):  # type: ignore
     pass
 
 
-@task(aliases=["checks", "all-checks", "lint-all"])
-def hooks(c):  # type: ignore
-    """Run all pre-commit hooks on all files."""
-    c.run("poetry run pre-commit run --all-files")
-
-
 @task(aliases=["upgrade"])
 def update(c):  # type: ignore
     """Upgrade/update packages and hooks."""
@@ -83,7 +87,12 @@ def update(c):  # type: ignore
 @task(aliases=["pylint"])
 def lint(c):  # type: ignore
     """Lint files and save report."""
-    c.run("poetry run pylint --rcfile pyproject.toml -j 0 iometrics > pylint-report.txt")
+    c.run(
+        """
+        poetry run pylint --rcfile pyproject.toml -j 0 \
+            iometrics > pylint-report.txt
+    """.strip()
+    )
 
 
 @task(aliases=["tests"])
@@ -202,3 +211,9 @@ def build_and_upload_documentation(c):  # type: ignore
         disable_indexing_for_PRs()
     else:
         print("No PR number, no need to re-generate docs at /pr/")
+
+
+@task(aliases=["check", "checks", "all-checks", "lint-all", "all"])
+def hooks(c):  # type: ignore
+    """Run all pre-commit hooks on all files."""
+    c.run("poetry run pre-commit run --all-files")

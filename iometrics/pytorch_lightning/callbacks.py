@@ -24,7 +24,7 @@ from iometrics import NetworkMetrics
 
 
 # How often to fetch metrics
-TRACK_METRICS_INTERVAL_SECS = 10
+TRACK_METRICS_INTERVAL_SECS = 1
 
 # Metrics generated:
 LOG_KEY_NETW_BYTES_RECV = "network/recv_MB_per_sec"
