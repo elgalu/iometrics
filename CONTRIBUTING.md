@@ -29,7 +29,7 @@ Start all your feature/bugs/other with:
 
 ### Create a release branch
 
-Make sure you're on a release branch, e.g. `git checkout -b release-0.0.7` .
+Make sure you're on a release branch, e.g. `git checkout -b release-0.0.8` .
 And that the release branch is pushed (tracked) in origin, else you'll get `does not track anything` tbump error.
 
 ### Create a new fragment for the CHANGELOG
@@ -49,7 +49,7 @@ Run `poetry run invoke tests`
 
 ## Running all checks (including tests)
 
-Run `poetry run invoke hooks tests`
+Run `poetry run invoke all`
 
 ## Maintainers
 
@@ -61,8 +61,8 @@ Commit all your local changes.
 Add `--yes` when running in CI/CD to avoid stdin questions:
 
 ```sh
-towncrier build --version "0.0.7" --draft  # test first
-towncrier build --version "0.0.7"          # final
+towncrier build --version "0.0.8" --draft  # test first
+towncrier build --version "0.0.8"          # final
 ```
 
 Now fix the `CHANGELOG.md` order and sub-headings.
@@ -71,17 +71,17 @@ Run `invoke hooks`
 
 #### Manual tbump release
 
-Bump with `tbump "0.0.7" --only-patch`
+Bump with `tbump "0.0.8" --only-patch`
 
-Commit changes with `Release 0.0.7 with _`
+Commit changes with `Release 0.0.8 with _`
 
 Then run `poetry build && poetry publish` to also publish to <https://pypi.org/project/iometrics>
 
 #### Additional notes on tbump
 
-If you want to bump the version locally, without creating a git tag use `tbump "0.0.7" --only-patch`
+If you want to bump the version locally, without creating a git tag use `tbump "0.0.8" --only-patch`
 
-However the version bumping is currently automated in CI/CD via `tbump "0.0.7" --non-interactive`
+However the version bumping is currently automated in CI/CD via `tbump "0.0.8" --non-interactive`
 
 ### Build and publish the new version to PyPI
 
