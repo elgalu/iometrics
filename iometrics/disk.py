@@ -177,7 +177,12 @@ def compute_new_stats_ps(
     aggr.io_read_ps = io_read_delta / time_delta
     aggr.io_writ_ps = io_writ_delta / time_delta
 
-    util_delta: int = per_device_stats[device_name].io_util - last_all_devices_stats.io_util
+    util_delta: int = 0
+
+    # Devices like AWS EBS or USB drives can get dynamically detached so validate key:
+    if device_name in per_device_stats:
+        util_delta = per_device_stats[device_name].io_util - last_all_devices_stats.io_util
+
     util_delta = max(0, util_delta)
     aggr.io_util = 100 * util_delta / (time_delta * 1000.0)
     aggr.io_util = min(100, aggr.io_util)

@@ -67,9 +67,9 @@ towncrier build --version "0.0.8"          # final
 
 Now fix the `CHANGELOG.md` order and sub-headings.
 
-Run `invoke hooks`
+Run `invoke hooks` then `tbump "0.0.8"`
 
-#### tbump release
+#### Manual tbump Release
 
 Bump with `tbump "0.0.8" --only-patch`
 
