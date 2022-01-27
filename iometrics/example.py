@@ -28,10 +28,10 @@ from iometrics import NetworkMetrics
 
 
 DUAL_METRICS_HEADER = """
-|        Network (MBytes/s)       | Disk Util |            Disk MBytes          |             Disk I/O            |
-|     Received    |     Sent      |     %     |    MB/s Read    |  MB/s Written |     I/O Read    |   I/O Write   |
-|   val  |   avg  |  val  |  avg  | val | avg |  val   |  avg   |  val  |  avg  |   val  |   avg  |  val  |  avg  |
-| ------:| ------:| -----:| -----:| ---:| ---:| ------:| ------:| -----:| -----:| ------:| ------:| -----:| -----:|"""
+|        Network (MBytes/s)       | Disk Util |            Disk MBytes          |             Disk I/O                                              |
+|     Received    |     Sent      |     %     |    MB/s Read    |  MB/s Written |     I/O Read    |   I/O Write   |     I/O Read    |   I/O Write   |
+|   val  |   avg  |  val  |  avg  | val | avg |  val   |  avg   |  val  |  avg  |   val  |   avg  |  val  |  avg  |   val  |   avg  |  val  |  avg  |
+| ------:| ------:| -----:| -----:| ---:| ---:| ------:| ------:| -----:| -----:| ------:| ------:| -----:| -----:| ------:| ------:| -----:| -----:|"""
 
 
 def usage(iterations: int = 10000) -> str:
@@ -56,6 +56,7 @@ def usage(iterations: int = 10000) -> str:
             f"| {disk.mb_writ.val:5.1f} | {disk.mb_writ.avg:5.1f} "
             f"| {int(disk.io_read.val):6d} | {int(disk.io_read.avg):6d} "
             f"| {int(disk.io_writ.val):5d} | {int(disk.io_writ.avg):5d} "
+            f"| {int(disk.io_wait.val):5.1f} | {int(disk.io_wait.avg):5.1f} "
             f"|"
         )
         print(row)

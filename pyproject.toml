@@ -75,7 +75,7 @@ msg-template = "{path}:{line}: [{msg_id}({symbol}),{obj}]{msg}"
 reports = "no" # https://docs.sonarqube.org/latest/analysis/languages/python/#pylint
 
 [tool.pylint.'FORMAT']
-max-line-length = 120
+max-line-length = 155
 
 [tool.pylint.'DESIGN']
 # [R0902(too-many-instance-attributes),DiskMetrics]Too many instance attributes (9/8)
